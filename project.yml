@@ -1,0 +1,55 @@
+# Projeto Xcode SÓ para testes de UI (XCUITest). Build, lint e testes unitários seguem no SwiftPM.
+# Gerado por scripts/e2e.sh com XcodeGen (WinToolsE2E.xcodeproj na raiz, gitignored) — nunca versione (ADR-0004).
+name: WinToolsE2E
+options:
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    ARCHS: arm64
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_VERSION: "6.0"
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+    DEVELOPMENT_TEAM: ""
+packages:
+  WinToolsPackage:
+    path: .
+targets:
+  # Nome diferente do executável SwiftPM "WinTools" para o Xcode não confundir o host dos testes.
+  WinToolsApp:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/WinTools
+    dependencies:
+      - package: WinToolsPackage
+        product: WinToolsCore
+    settings:
+      base:
+        INFOPLIST_FILE: Support/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.portillodev1.wintools
+        PRODUCT_NAME: WinTools
+        GENERATE_INFOPLIST_FILE: NO
+  WinToolsUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - Tests/WinToolsUITests
+    dependencies:
+      - target: WinToolsApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.portillodev1.wintools.uitests
+        TEST_TARGET_NAME: WinToolsApp
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  WinToolsUITests:
+    build:
+      targets:
+        WinToolsApp: all
+        WinToolsUITests: [test]
+    test:
+      targets:
+        - WinToolsUITests

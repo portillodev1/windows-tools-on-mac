@@ -1,0 +1,11 @@
+# SwiftPM / Xcode
+.build/
+.swiftpm/
+DerivedData/
+# Projeto Xcode gerado pelo XcodeGen (project.yml) para os testes de UI
+WinToolsE2E.xcodeproj/
+# Artefatos gerados pelos scripts
+build/
+dist/
+# macOS
+.DS_Store

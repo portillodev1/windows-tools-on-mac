@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>pt-BR</string>
+	<key>CFBundleExecutable</key>
+	<string>WinTools</string>
+	<key>CFBundleIdentifier</key>
+	<string>io.github.portillodev1.wintools</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>WinTools</string>
+	<key>CFBundleDisplayName</key>
+	<string>WinTools</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<!-- Versões preenchidas por scripts/bundle.sh a partir do arquivo VERSION -->
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>0</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>LSArchitecturePriority</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<!-- App só de barra de menus: sem ícone no Dock -->
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Licenciado sob Apache-2.0</string>
+</dict>
+</plist>

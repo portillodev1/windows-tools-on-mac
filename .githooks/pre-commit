@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Pre-commit rápido (sensores computacionais baratos). O gate completo é scripts/verify.sh.
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+"$ROOT/scripts/lint.sh"
+"$ROOT/scripts/check-architecture.sh"
+"$ROOT/scripts/check-docs.sh"

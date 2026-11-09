@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    # Runner macOS em Apple Silicon (arm64)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Toolchain
+        run: swift --version
+      - name: Gate (build + lint + arquitetura + docs + testes/cobertura)
+        run: scripts/verify.sh
+      - name: Bundle smoke test
+        run: scripts/bundle.sh
+
+  e2e:
+    # Testes de UI (XCUITest). Não bloqueante até a 1ª execução verde no runner (ADR-0004).
+    runs-on: macos-15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependências de desenvolvimento
+        run: brew bundle
+      - name: Testes ponta a ponta
+        run: scripts/e2e.sh
+      - name: Resultado (screenshots das falhas)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-xcresult
+          path: build/xcode/e2e.xcresult
